@@ -11,6 +11,10 @@ input::placeholder {
   font-family: $primary-font;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 nav {
   height: 10vh;
   background-color: $primary-color;
