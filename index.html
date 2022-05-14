@@ -4,10 +4,48 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
     <link rel="stylesheet" href="./scss/main.scss" />
+
+    <script src="https://kit.fontawesome.com/2daef9e3c4.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
     <script type="module" defer src="./js/main.js"></script>
     <title>Fresh Tomatoes</title>
   </head>
-  <body></body>
+  <body>
+    <nav>
+      <a class="logo">
+        <img src="./img/logo.png" alt="" />
+      </a>
+      <div class="search">
+        <!-- remove value when main.js is complete -->
+        <input type="text" placeholder="Frozen" value="frozen"/>
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+    </nav>
+    <main>
+      <div class="poster-container">
+        <div class="grid-container">
+          <div class="grid-item hidden">
+            <a href="" target="_blank" class="poster">
+              <img src="" />
+              <div class="overlay">
+                <div class="info">
+                  <div class="poster-title"></div>
+                  <div class="poster-year"></div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+    </main>
+  </body>
 </html>
