@@ -18,6 +18,7 @@ const movieContainerEl = document.querySelector('.movie-container');
 
 inputEl.addEventListener('keypress', async e => {
   if (e.key === 'Enter') {
+    // moviePageEl.focus();
     e.preventDefault();
     welcomePageEl.classList.add('hidden');
     moviePageEl.classList.remove('hidden');
@@ -46,6 +47,10 @@ inputEl.addEventListener('keyup', () => {
 });
 
 closeEl.addEventListener('click', () => {
+  clearInputValue();
+});
+
+inputEl.addEventListener('click', () => {
   clearInputValue();
 });
 
