@@ -10,20 +10,20 @@ const getMovie = async (name, page) => {
 
 let page = 1;
 let totalResults = 0;
-const searchEl = document.querySelector('.search input');
+const inputEl = document.querySelector('.search input');
 const closeEl = document.querySelector('.search .fa-xmark');
 const welcomePageEl = document.querySelector('.welcome-page');
 const moviePageEl = document.querySelector('.movie-page');
 const movieContainerEl = document.querySelector('.movie-container');
 
-searchEl.addEventListener('keypress', async e => {
+inputEl.addEventListener('keypress', async e => {
   if (e.key === 'Enter') {
     e.preventDefault();
     welcomePageEl.classList.add('hidden');
     moviePageEl.classList.remove('hidden');
     const movieItemEls = document.querySelectorAll('.movie-item:not(.hidden)');
 
-    let movies = await getMovie(searchEl.value, page);
+    let movies = await getMovie(inputEl.value, page);
     renderMovie(movies);
 
     if (movieItemEls.length > 0) {
@@ -37,8 +37,8 @@ searchEl.addEventListener('keypress', async e => {
 });
 
 // Q: It's not efficient to fire keyup event everytime. What is the better way to create this feature?
-searchEl.addEventListener('keyup', () => {
-  if (searchEl.value) {
+inputEl.addEventListener('keyup', () => {
+  if (inputEl.value) {
     closeEl.classList.remove('hidden');
   } else {
     closeEl.classList.add('hidden');
@@ -46,8 +46,12 @@ searchEl.addEventListener('keyup', () => {
 });
 
 closeEl.addEventListener('click', () => {
-  searchEl.value = '';
+  clearInputValue();
 });
+
+const clearInputValue = () => {
+  inputEl.value = '';
+};
 
 // async arrow function not working
 function renderMovie(movies) {
