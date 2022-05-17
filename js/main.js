@@ -17,6 +17,10 @@ const h1El = document.querySelector('h1');
 const h2El = document.querySelector('h2');
 const moviePageEl = document.querySelector('.movie-page');
 const movieContainerEl = document.querySelector('.movie-container');
+const detailContainerEl = document.querySelector('.detail-container');
+const detailContainerOverlayEl = document.querySelector(
+  '.detail-container-overlay'
+);
 
 inputEl.addEventListener('keypress', async e => {
   if (e.key === 'Enter') {
@@ -24,7 +28,6 @@ inputEl.addEventListener('keypress', async e => {
     // moviePageEl.focus();
     e.preventDefault();
     const movies = await getMovie(inputEl.value, page);
-    console.log(movies.totalResults);
 
     if (movies.totalResults) {
       const movieItemEls = document.querySelectorAll(
@@ -43,7 +46,7 @@ inputEl.addEventListener('keypress', async e => {
       moviePageEl.classList.add('hidden');
       if (movies.Response === 'False') {
         h1El.innerHTML = 'Sorry :(';
-        h2El.innerHTML = `No results found for <span>${inputEl.value}</span>`;
+        h2El.innerHTML = `No results found for <span>"${inputEl.value}"</span>`;
       }
       if (inputEl.value === '') {
         h1El.innerHTML = 'Forgot to type?';
@@ -77,24 +80,49 @@ const clearInputValue = () => {
 // Q: Why async with arrow function is not working?
 function renderMovie(movies) {
   const { Search, totalResults } = movies;
-  console.log(Search, totalResults);
-
   Search.forEach(movie => {
     const movieNode = document
       .querySelector('div.movie-item.hidden')
       .cloneNode(true);
     movieNode.classList.remove('hidden');
     movieNode.querySelector('img').src = movie.Poster;
-    movieNode.querySelector(
-      'a'
-    ).href = `https://www.imdb.com/title/${movie.imdbID}/`;
     movieNode.querySelector('.movie-title').innerHTML = movie.Title;
     movieNode.querySelector('.movie-year').innerHTML = movie.Year;
     movieContainerEl.append(movieNode);
   });
+  const movieItemEls = document.querySelectorAll('.movie-item:not(.hidden)');
+  openMovieDetail(movieItemEls);
   // page = 2;
   // loadMore(page);
 }
+
+const openMovieDetail = movieItemEls => {
+  movieItemEls.forEach(movieItemEl => {
+    movieItemEl.addEventListener('click', () => {
+      detailContainerEl.classList.remove('hidden');
+      detailContainerOverlayEl.classList.remove('hidden');
+    });
+  });
+};
+
+const closeMovieDetail = () => {
+  detailContainerEl.classList.add('hidden');
+  detailContainerOverlayEl.classList.add('hidden');
+};
+
+document.querySelector('.close-detail-item').addEventListener('click', () => {
+  closeMovieDetail();
+});
+
+detailContainerOverlayEl.addEventListener('click', () => {
+  closeMovieDetail();
+});
+
+window.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeMovieDetail();
+  }
+});
 
 /* Create lazy load using intersection observer (NOT WORKING)
 const loadMore = page => {

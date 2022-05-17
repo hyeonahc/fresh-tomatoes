@@ -28,12 +28,12 @@
     <title>Fresh Tomatoes</title>
   </head>
   <body>
+    <div class="detail-container-overlay hidden"></div>
     <nav>
       <a class="logo">
         <img src="./img/logo.png" alt="" />
       </a>
       <div class="search">
-        <!-- Remove value when main.js is complete -->
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" placeholder="Search Movie..." />
         <i class="fa-solid fa-xmark hidden"></i>
@@ -73,10 +73,10 @@
           </div>
         </div>
       </section>
-      <section class="movie-page hidden">
+      <section class="movie-page">
         <div class="movie-container">
           <div class="movie-item hidden">
-            <a href="" target="_blank" class="poster">
+            <div class="poster">
               <img src="" />
               <div class="overlay">
                 <div class="info">
@@ -84,10 +84,72 @@
                   <div class="movie-year"></div>
                 </div>
               </div>
-            </a>
+            </div>
           </div>
         </div>
-        <div class="load-more">LOAD MORE</div>
+        <div class="detail-container hidden">
+          <i class="fa-solid fa-xmark close-detail-item"></i>
+          <div class="detail-item">
+            <img
+              src="https://m.media-amazon.com/images/M/MV5BMTQ1MjQwMTE5OF5BMl5BanBnXkFtZTgwNjk3MTcyMDE@._V1_QL75_UX380_CR0,0,380,562_.jpg"
+              alt=""
+            />
+            <div class="movie-info">
+              <div class="movie-title">
+                Frozen
+                <a href="" target="_blank"><i class="fa-solid fa-link"></i></a>
+              </div>
+              <div class="categories">
+                <div class="category">Animation</div>
+                <div class="category">Adventure</div>
+                <div class="category">Comedy</div>
+              </div>
+              <p>
+                When the newly crowned Queen Elsa accidentally uses her power to
+                turn things into ice to curse her home in infinite winter, her
+                sister Anna teams up with a mountain man, his playful reindeer,
+                and a snowman to change the weather condition.
+              </p>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Release Date</td>
+                    <td>27 Nov 2013</td>
+                  </tr>
+                  <tr>
+                    <td>Running time</td>
+                    <td>102 min</td>
+                  </tr>
+                  <tr>
+                    <td>Directors</td>
+                    <td>Chris Buck, Jennifer Lee</td>
+                  </tr>
+                  <tr>
+                    <td>Writers</td>
+                    <td>Jennifer Lee, Hans Christian Andersen, Chris Buck</td>
+                  </tr>
+                  <tr>
+                    <td>Starring</td>
+                    <td>Kristen Bell, Idina Menzel, Jonathan Groff</td>
+                  </tr>
+                  <tr>
+                    <td>Language</td>
+                    <td>English, Norwegian</td>
+                  </tr>
+                  <tr>
+                    <td>Country</td>
+                    <td>United States</td>
+                  </tr>
+                  <tr>
+                    <td>Awards</td>
+                    <td>Won 2 Oscars. 82 wins & 60 nominations total</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="load-more">LOAD MORE</div> -->
       </section>
     </main>
   </body>
