@@ -18,21 +18,28 @@ const movieContainerEl = document.querySelector('.movie-container');
 
 inputEl.addEventListener('keypress', async e => {
   if (e.key === 'Enter') {
+    // Q: how to change focused element?
     // moviePageEl.focus();
     e.preventDefault();
-    welcomePageEl.classList.add('hidden');
-    moviePageEl.classList.remove('hidden');
-    const movieItemEls = document.querySelectorAll('.movie-item:not(.hidden)');
+    const movies = await getMovie(inputEl.value, page);
+    console.log(movies.totalResults);
 
-    let movies = await getMovie(inputEl.value, page);
-    renderMovie(movies);
+    if (movies.totalResults) {
+      const movieItemEls = document.querySelectorAll(
+        '.movie-item:not(.hidden)'
+      );
 
-    if (movieItemEls.length > 0) {
-      console.log(movieContainerEl);
-      console.log(movieItemEls);
-      movieItemEls.forEach(movieItemEl => {
-        movieContainerEl.removeChild(movieItemEl);
-      });
+      if (movieItemEls.length > 0) {
+        movieItemEls.forEach(movieItemEl => {
+          movieContainerEl.removeChild(movieItemEl);
+        });
+      }
+
+      welcomePageEl.classList.add('hidden');
+      moviePageEl.classList.remove('hidden');
+      renderMovie(movies);
+    } else {
+      console.log('No results found for “keyword”');
     }
   }
 });
