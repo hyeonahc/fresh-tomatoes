@@ -20,7 +20,7 @@ const movieContainerEl = document.querySelector('.movie-container');
 
 inputEl.addEventListener('keypress', async e => {
   if (e.key === 'Enter') {
-    // Q: how to change focused element?
+    // Q: How to change focused element? (from input element to something else)
     // moviePageEl.focus();
     e.preventDefault();
     const movies = await getMovie(inputEl.value, page);
@@ -53,7 +53,7 @@ inputEl.addEventListener('keypress', async e => {
   }
 });
 
-// Q: It's not efficient to fire keyup event everytime. What is the better way to create this feature?
+// Q: It's not efficient to fire keyup event everytime. What is a better way to create this feature?
 inputEl.addEventListener('keyup', () => {
   if (inputEl.value) {
     closeEl.classList.remove('hidden');
@@ -74,7 +74,7 @@ const clearInputValue = () => {
   inputEl.value = '';
 };
 
-// async arrow function not working
+// Q: Why async with arrow function is not working?
 function renderMovie(movies) {
   const { Search, totalResults } = movies;
   console.log(Search, totalResults);
