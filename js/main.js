@@ -13,6 +13,8 @@ let totalResults = 0;
 const inputEl = document.querySelector('.search input');
 const closeEl = document.querySelector('.search .fa-xmark');
 const welcomePageEl = document.querySelector('.welcome-page');
+const h1El = document.querySelector('h1');
+const h2El = document.querySelector('h2');
 const moviePageEl = document.querySelector('.movie-page');
 const movieContainerEl = document.querySelector('.movie-container');
 
@@ -39,7 +41,18 @@ inputEl.addEventListener('keypress', async e => {
       moviePageEl.classList.remove('hidden');
       renderMovie(movies);
     } else {
-      console.log('No results found for “keyword”');
+      welcomePageEl.classList.remove('hidden');
+      moviePageEl.classList.add('hidden');
+
+      if (movies.Response === 'False') {
+        h1El.innerHTML = 'Sorry :(';
+        h2El.innerHTML = `No results found for <span>${inputEl.value}</span>`;
+      }
+
+      if (inputEl.value === '') {
+        h1El.innerHTML = 'Forgot to type?';
+        h2El.innerHTML = `Type something to find your favourite movie!`;
+      }
     }
   }
 });
