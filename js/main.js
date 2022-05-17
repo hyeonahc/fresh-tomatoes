@@ -14,14 +14,25 @@ const searchEl = document.querySelector('.search input');
 const closeEl = document.querySelector('.search .fa-xmark');
 const welcomePageEl = document.querySelector('.welcome-page');
 const moviePageEl = document.querySelector('.movie-page');
+const movieContainerEl = document.querySelector('.movie-container');
 
 searchEl.addEventListener('keypress', async e => {
   if (e.key === 'Enter') {
     e.preventDefault();
     welcomePageEl.classList.add('hidden');
     moviePageEl.classList.remove('hidden');
+    const movieItemEls = document.querySelectorAll('.movie-item:not(.hidden)');
+
     let movies = await getMovie(searchEl.value, page);
     renderMovie(movies);
+
+    if (movieItemEls.length > 0) {
+      console.log(movieContainerEl);
+      console.log(movieItemEls);
+      movieItemEls.forEach(movieItemEl => {
+        movieContainerEl.removeChild(movieItemEl);
+      });
+    }
   }
 });
 
@@ -43,16 +54,16 @@ function renderMovie(movies) {
   const { Search, totalResults } = movies;
   console.log(Search, totalResults);
 
-  const movieContainerEl = document.querySelector('.movie-container');
-  const movieItemEls = document.querySelectorAll('.movie-item:not(.hidden)');
+  // const movieContainerEl = document.querySelector('.movie-container');
+  // const movieItemEls = document.querySelectorAll('.movie-item:not(.hidden)');
 
-  if (movieItemEls.length > 0) {
-    console.log(movieContainerEl);
-    console.log(movieItemEls);
-    movieItemEls.forEach(movieItemEl => {
-      movieContainerEl.removeChild(movieItemEl);
-    });
-  }
+  // if (movieItemEls.length > 0) {
+  //   console.log(movieContainerEl);
+  //   console.log(movieItemEls);
+  //   movieItemEls.forEach(movieItemEl => {
+  //     movieContainerEl.removeChild(movieItemEl);
+  //   });
+  // }
 
   Search.forEach(movie => {
     const movieNode = document
