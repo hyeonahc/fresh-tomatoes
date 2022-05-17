@@ -8,6 +8,12 @@ const getMovie = async (name, page) => {
   return res;
 };
 
+const getMovieDetail = async id => {
+  let res = await fetch(`https://www.omdbapi.com?apikey=7035c60c&i=${id}`);
+  res = await res.json();
+  return res;
+};
+
 let page = 1;
 let totalResults = 0;
 const inputEl = document.querySelector('.search input');
@@ -28,6 +34,7 @@ inputEl.addEventListener('keypress', async e => {
     // moviePageEl.focus();
     e.preventDefault();
     const movies = await getMovie(inputEl.value, page);
+    console.log(movies);
 
     if (movies.totalResults) {
       const movieItemEls = document.querySelectorAll(
@@ -88,6 +95,7 @@ function renderMovie(movies) {
     movieNode.querySelector('img').src = movie.Poster;
     movieNode.querySelector('.movie-title').innerHTML = movie.Title;
     movieNode.querySelector('.movie-year').innerHTML = movie.Year;
+    movieNode.setAttribute('data-imdbid', movie.imdbID);
     movieContainerEl.append(movieNode);
   });
   const movieItemEls = document.querySelectorAll('.movie-item:not(.hidden)');
@@ -98,9 +106,13 @@ function renderMovie(movies) {
 
 const openMovieDetail = movieItemEls => {
   movieItemEls.forEach(movieItemEl => {
-    movieItemEl.addEventListener('click', () => {
+    movieItemEl.addEventListener('click', async () => {
       detailContainerEl.classList.remove('hidden');
       detailContainerOverlayEl.classList.remove('hidden');
+      const movieDetail = await getMovieDetail(
+        movieItemEl.getAttribute('data-imdbid')
+      );
+      console.log(movieDetail);
     });
   });
 };
