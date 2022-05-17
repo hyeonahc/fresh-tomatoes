@@ -1,5 +1,11 @@
 $primary-font: 'Gothic A1', sans-serif;
 
+$bolder: 900;
+$bold: 700;
+$regular: 500;
+$light: 300;
+$lighter: 100;
+
 $primary-color: #f8320b;
 $font-color: #2a2c32;
 $light-green: #97c447;
@@ -34,23 +40,23 @@ input::placeholder {
 h1 {
   font-size: 3rem;
   line-height: 1.5;
-  font-weight: 900;
+  font-weight: $bolder;
 }
 
 h2 {
   font-size: 1.5rem;
-  font-weight: 100;
+  font-weight: $lighter;
 }
 
 h3 {
   font-size: 2rem;
-  font-weight: 100;
+  font-weight: $lighter;
 }
 
 p {
   font-size: 1rem;
   line-height: 1.5;
-  font-weight: 100;
+  font-weight: $lighter;
 }
 
 html {
@@ -120,7 +126,7 @@ nav {
       }
       h2 {
         span {
-          font-weight: 400;
+          font-weight: $regular;
         }
       }
     }
@@ -204,13 +210,13 @@ nav {
           .movie-title {
             font-size: 1.5rem;
             line-height: 1.5;
-            font-weight: 700;
+            font-weight: $bold;
             margin-bottom: 0.2em;
             text-shadow: 0px 0px 20px $black;
           }
           .movie-year {
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: $regular;
             text-shadow: 0px 0px 20px $black;
           }
         }
