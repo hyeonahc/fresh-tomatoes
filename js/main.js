@@ -11,15 +11,29 @@ const getMovie = async (name, page) => {
 let page = 1;
 let totalResults = 0;
 const searchEl = document.querySelector('.search input');
-const searchBtnEl = document.querySelector('.search .fa-magnifying-glass');
+const closeEl = document.querySelector('.search .fa-xmark');
 
-searchBtnEl.addEventListener('click', async () => {
-  if (page === 1) {
+searchEl.addEventListener('keypress', async e => {
+  if (e.key === 'Enter' && page === 1) {
+    e.preventDefault();
     document.querySelector('.welcome-page').classList.add('hidden');
     document.querySelector('.movie-page').classList.remove('hidden');
+    let movies = await getMovie(searchEl.value, page);
+    renderMovie(movies);
   }
-  let movies = await getMovie(searchEl.value, page);
-  renderMovie(movies);
+});
+
+// Q: It's not efficient to fire keyup event everytime. What is the better way to create this feature?
+searchEl.addEventListener('keyup', () => {
+  if (searchEl.value) {
+    closeEl.classList.remove('hidden');
+  } else {
+    closeEl.classList.add('hidden');
+  }
+});
+
+closeEl.addEventListener('click', () => {
+  searchEl.value = '';
 });
 
 // async arrow function not working
@@ -42,7 +56,7 @@ function renderMovie(movies) {
     movieContainerEl.append(movieNode);
   });
   // page = 2;
-  loadMore(page);
+  // loadMore(page);
 }
 
 /* Create lazy load using intersection observer (NOT WORKING)
