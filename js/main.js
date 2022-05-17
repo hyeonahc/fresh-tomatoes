@@ -30,25 +30,21 @@ inputEl.addEventListener('keypress', async e => {
       const movieItemEls = document.querySelectorAll(
         '.movie-item:not(.hidden)'
       );
-
       if (movieItemEls.length > 0) {
         movieItemEls.forEach(movieItemEl => {
           movieContainerEl.removeChild(movieItemEl);
         });
       }
-
       welcomePageEl.classList.add('hidden');
       moviePageEl.classList.remove('hidden');
       renderMovie(movies);
     } else {
       welcomePageEl.classList.remove('hidden');
       moviePageEl.classList.add('hidden');
-
       if (movies.Response === 'False') {
         h1El.innerHTML = 'Sorry :(';
         h2El.innerHTML = `No results found for <span>${inputEl.value}</span>`;
       }
-
       if (inputEl.value === '') {
         h1El.innerHTML = 'Forgot to type?';
         h2El.innerHTML = `Type something to find your favourite movie!`;
