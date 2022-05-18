@@ -28,7 +28,7 @@
     <title>Fresh Tomatoes</title>
   </head>
   <body>
-    <div class="detail-container-overlay hidden"></div>
+    <div class="movie-card-overlay hidden"></div>
     <nav>
       <a class="logo">
         <img src="./img/logo.png" alt="" />
@@ -74,83 +74,58 @@
         </div>
       </section>
       <section class="movie-page">
-        <div class="movie-container">
-          <div class="movie-item hidden">
-            <div class="poster">
-              <img src="" />
-              <div class="overlay">
-                <div class="info">
-                  <div class="movie-title"></div>
-                  <div class="movie-year"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="detail-container hidden">
-          <i class="fa-solid fa-xmark close-detail-item"></i>
-          <div class="detail-item">
-            <img
-              src="https://m.media-amazon.com/images/M/MV5BMTQ1MjQwMTE5OF5BMl5BanBnXkFtZTgwNjk3MTcyMDE@._V1_QL75_UX380_CR0,0,380,562_.jpg"
-              alt=""
-            />
-            <div class="movie-info">
-              <div class="movie-title">
-                Frozen
-                <a href="" target="_blank"><i class="fa-solid fa-link"></i></a>
-              </div>
-              <div class="categories">
-                <div class="category">Animation</div>
-                <div class="category">Adventure</div>
-                <div class="category">Comedy</div>
-              </div>
-              <p>
-                When the newly crowned Queen Elsa accidentally uses her power to
-                turn things into ice to curse her home in infinite winter, her
-                sister Anna teams up with a mountain man, his playful reindeer,
-                and a snowman to change the weather condition.
-              </p>
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Release Date</td>
-                    <td>27 Nov 2013</td>
-                  </tr>
-                  <tr>
-                    <td>Running time</td>
-                    <td>102 min</td>
-                  </tr>
-                  <tr>
-                    <td>Directors</td>
-                    <td>Chris Buck, Jennifer Lee</td>
-                  </tr>
-                  <tr>
-                    <td>Writers</td>
-                    <td>Jennifer Lee, Hans Christian Andersen, Chris Buck</td>
-                  </tr>
-                  <tr>
-                    <td>Starring</td>
-                    <td>Kristen Bell, Idina Menzel, Jonathan Groff</td>
-                  </tr>
-                  <tr>
-                    <td>Language</td>
-                    <td>English, Norwegian</td>
-                  </tr>
-                  <tr>
-                    <td>Country</td>
-                    <td>United States</td>
-                  </tr>
-                  <tr>
-                    <td>Awards</td>
-                    <td>Won 2 Oscars. 82 wins & 60 nominations total</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <!-- <div class="load-more">LOAD MORE</div> -->
+        <div class="movie-container"></div>
       </section>
+      <div class="movie-card hidden">
+        <div class="flex-container">
+          <i class="fa-solid fa-xmark close-movie-card"></i>
+          <img class="movie-img" alt="" />
+          <div class="movie-info">
+            <div class="movie-title">
+              <a href="" target="_blank"><i class="fa-solid fa-link"></i></a>
+            </div>
+            <div class="categories"></div>
+            <p></p>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Release Date</td>
+                  <td class="release-date"></td>
+                </tr>
+                <tr>
+                  <td>Running time</td>
+                  <td class="running-time"></td>
+                </tr>
+                <tr>
+                  <td>Directors</td>
+                  <td class="directors"></td>
+                </tr>
+                <tr>
+                  <td>Writers</td>
+                  <td class="writers"></td>
+                </tr>
+                <tr>
+                  <td>Starring</td>
+                  <td class="starring"></td>
+                </tr>
+                <tr>
+                  <td>Language</td>
+                  <td class="language"></td>
+                </tr>
+                <tr>
+                  <td>Country</td>
+                  <td class="country"></td>
+                </tr>
+                <tr>
+                  <td>Awards</td>
+                  <td class="awards"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="load-more hidden">LOAD MORE</div>
     </main>
   </body>
 </html>

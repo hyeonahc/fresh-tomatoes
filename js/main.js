@@ -1,5 +1,20 @@
 import 'regenerator-runtime';
 
+// variable declaration
+let page = 1;
+let totalResults = 0;
+let initialRequest;
+const inputEl = document.querySelector('.search input');
+const closeEl = document.querySelector('.search .fa-xmark');
+const welcomePageEl = document.querySelector('.welcome-page');
+const h1El = document.querySelector('h1');
+const h2El = document.querySelector('h2');
+const moviePageEl = document.querySelector('.movie-page');
+const movieContainerEl = document.querySelector('.movie-container');
+const movieCardEl = document.querySelector('.movie-card');
+const movieCardOverlayEl = document.querySelector('.movie-card-overlay');
+
+// fetch movie data
 const getMovie = async (name, page) => {
   let res = await fetch(
     `https://www.omdbapi.com?apikey=7035c60c&s=${name}&page=${page}`
@@ -8,62 +23,16 @@ const getMovie = async (name, page) => {
   return res;
 };
 
-const getMovieDetail = async id => {
-  let res = await fetch(`https://www.omdbapi.com?apikey=7035c60c&i=${id}`);
-  res = await res.json();
-  return res;
-};
-
-let page = 1;
-let totalResults = 0;
-const inputEl = document.querySelector('.search input');
-const closeEl = document.querySelector('.search .fa-xmark');
-const welcomePageEl = document.querySelector('.welcome-page');
-const h1El = document.querySelector('h1');
-const h2El = document.querySelector('h2');
-const moviePageEl = document.querySelector('.movie-page');
-const movieContainerEl = document.querySelector('.movie-container');
-const detailContainerEl = document.querySelector('.detail-container');
-const detailContainerOverlayEl = document.querySelector(
-  '.detail-container-overlay'
-);
-
-inputEl.addEventListener('keypress', async e => {
+// type keyword and submit
+inputEl.addEventListener('keypress', e => {
   if (e.key === 'Enter') {
-    // Q: How to change focused element? (from input element to something else)
-    // moviePageEl.focus();
     e.preventDefault();
-    const movies = await getMovie(inputEl.value, page);
-    console.log(movies);
-
-    if (movies.totalResults) {
-      const movieItemEls = document.querySelectorAll(
-        '.movie-item:not(.hidden)'
-      );
-      if (movieItemEls.length > 0) {
-        movieItemEls.forEach(movieItemEl => {
-          movieContainerEl.removeChild(movieItemEl);
-        });
-      }
-      welcomePageEl.classList.add('hidden');
-      moviePageEl.classList.remove('hidden');
-      renderMovie(movies);
-    } else {
-      welcomePageEl.classList.remove('hidden');
-      moviePageEl.classList.add('hidden');
-      if (movies.Response === 'False') {
-        h1El.innerHTML = 'Sorry :(';
-        h2El.innerHTML = `No results found for <span>"${inputEl.value}"</span>`;
-      }
-      if (inputEl.value === '') {
-        h1El.innerHTML = 'Forgot to type?';
-        h2El.innerHTML = `Type something to find your favourite movie!`;
-      }
-    }
+    inputEl.blur();
+    searchMovie();
   }
 });
 
-// Q: It's not efficient to fire keyup event everytime. What is a better way to create this feature?
+// input UX
 inputEl.addEventListener('keyup', () => {
   if (inputEl.value) {
     closeEl.classList.remove('hidden');
@@ -84,49 +53,188 @@ const clearInputValue = () => {
   inputEl.value = '';
 };
 
-// Q: Why async with arrow function is not working?
-function renderMovie(movies) {
-  const { Search, totalResults } = movies;
+// search movie using input value
+const searchMovie = async () => {
+  initialRequest = true;
+  page = 1;
+  const movies = await getMovie(inputEl.value, page);
+  const { Search, totalResults, Response, Error } = movies;
+  if (Response === 'True') {
+    welcomePageEl.classList.add('hidden');
+    clearExistingMovie();
+    renderMovie(Search, totalResults);
+  } else {
+    welcomePageEl.classList.remove('hidden');
+    errorPage(Error);
+  }
+  initialRequest = false;
+};
+
+// clear existing movie items when the user searches movies again
+const clearExistingMovie = () => {
+  if (movieContainerEl.hasChildNodes()) {
+    let child = movieContainerEl.lastElementChild;
+    while (child) {
+      movieContainerEl.removeChild(child);
+      child = movieContainerEl.lastElementChild;
+    }
+  }
+};
+
+// create element for movie item and append it
+function renderMovie(Search, totalResults) {
   Search.forEach(movie => {
-    const movieNode = document
-      .querySelector('div.movie-item.hidden')
-      .cloneNode(true);
-    movieNode.classList.remove('hidden');
-    movieNode.querySelector('img').src = movie.Poster;
-    movieNode.querySelector('.movie-title').innerHTML = movie.Title;
-    movieNode.querySelector('.movie-year').innerHTML = movie.Year;
-    movieNode.setAttribute('data-imdbid', movie.imdbID);
-    movieContainerEl.append(movieNode);
+    const movieItem = document.createElement('div');
+    movieItem.classList.add('movie-item');
+    const poster = document.createElement('div');
+    poster.classList.add('poster');
+    const img = document.createElement('img');
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay');
+    const info = document.createElement('div');
+    info.classList.add('info');
+    const movieTitle = document.createElement('div');
+    movieTitle.classList.add('movie-title');
+    const movieYear = document.createElement('div');
+    movieYear.classList.add('movie-year');
+
+    movieItem.append(poster);
+    poster.append(img, overlay);
+    overlay.append(info);
+    info.append(movieTitle, movieYear);
+
+    const { Poster, Title, Year, imdbID } = movie;
+    movieItem.setAttribute('data-imdbid', imdbID);
+    img.src = Poster;
+    movieTitle.innerHTML = Title;
+    movieYear.innerHTML = Year;
+
+    movieContainerEl.append(movieItem);
   });
-  const movieItemEls = document.querySelectorAll('.movie-item:not(.hidden)');
+  moviePageEl.append(movieContainerEl);
+  const movieItemEls = document.querySelectorAll('.movie-item');
   openMovieDetail(movieItemEls);
-  // page = 2;
-  // loadMore(page);
 }
 
+// handle error message
+const errorPage = error => {
+  if (error === 'Incorrect IMDb ID.') {
+    h1El.innerHTML = 'Forgot to type?';
+    h2El.innerHTML = `Type something to find your favourite movie!`;
+  } else if (error === 'Movie not found!') {
+    h1El.innerHTML = 'Sorry :(';
+    h2El.innerHTML = `No results found for <span>"${inputEl.value}"</span>`;
+  }
+};
+
+// execute infinite scroll using intersection observer
+const loadMoreEl = document.querySelector('.load-more');
+const infiniteScroll = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    const { isIntersecting } = entry;
+    if (isIntersecting) {
+      loadMoreMovie();
+    }
+  });
+});
+infiniteScroll.observe(loadMoreEl);
+
+// when load more button is observed, render more movies
+const loadMoreMovie = async () => {
+  page += 1;
+  const movies = await getMovie(inputEl.value, page);
+  const { Search, totalResults } = movies;
+  renderMovie(Search, totalResults);
+};
+
+// fetch movie detail data using imdbID
+const getMovieDetail = async id => {
+  let res = await fetch(`https://www.omdbapi.com?apikey=7035c60c&i=${id}`);
+  res = await res.json();
+  return res;
+};
+
+// open card when movie is clicked
 const openMovieDetail = movieItemEls => {
   movieItemEls.forEach(movieItemEl => {
-    movieItemEl.addEventListener('click', async () => {
-      detailContainerEl.classList.remove('hidden');
-      detailContainerOverlayEl.classList.remove('hidden');
-      const movieDetail = await getMovieDetail(
-        movieItemEl.getAttribute('data-imdbid')
-      );
-      console.log(movieDetail);
+    movieItemEl.addEventListener('click', () => {
+      movieCardEl.classList.remove('hidden');
+      movieCardOverlayEl.classList.remove('hidden');
+      const id = movieItemEl.getAttribute('data-imdbid');
+      searchMovieDetail(id);
     });
   });
 };
 
-const closeMovieDetail = () => {
-  detailContainerEl.classList.add('hidden');
-  detailContainerOverlayEl.classList.add('hidden');
+// search movie detail using id
+const searchMovieDetail = async id => {
+  const movieDetail = await getMovieDetail(id);
+  renderMovieDetail(movieDetail);
 };
 
-document.querySelector('.close-detail-item').addEventListener('click', () => {
+// append data to movie card elements
+const renderMovieDetail = movieDetail => {
+  const {
+    Poster,
+    Title,
+    imdbID,
+    Genre,
+    Plot,
+    Released,
+    Runtime,
+    Director,
+    Writer,
+    Actors,
+    Language,
+    Country,
+    Awards,
+  } = movieDetail;
+  document.querySelector('.movie-card .movie-img').src = Poster;
+  const title = document.querySelector('.movie-card .movie-title')
+    .childNodes[0];
+  title.nodeValue = Title;
+  document.querySelector(
+    '.movie-card .movie-title a'
+  ).href = `https://www.imdb.com/title/${imdbID}/`;
+
+  const categoriesEl = document.querySelector('.movie-card .categories');
+  let genreArr = Genre.split(', ');
+  if (categoriesEl.hasChildNodes()) {
+    let child = categoriesEl.lastElementChild;
+    while (child) {
+      categoriesEl.removeChild(child);
+      child = categoriesEl.lastElementChild;
+    }
+  }
+  genreArr.forEach(genre => {
+    const category = document.createElement('div');
+    category.classList.add('category');
+    category.textContent = genre;
+    categoriesEl.append(category);
+  });
+
+  document.querySelector('.movie-card p').textContent = Plot;
+  document.querySelector('.release-date').textContent = Released;
+  document.querySelector('.running-time').textContent = Runtime;
+  document.querySelector('.directors').textContent = Director;
+  document.querySelector('.writers').textContent = Writer;
+  document.querySelector('.starring').textContent = Actors;
+  document.querySelector('.language').textContent = Language;
+  document.querySelector('.country').textContent = Country;
+  document.querySelector('.awards').textContent = Awards;
+};
+
+// close movie card
+const closeMovieDetail = () => {
+  movieCardEl.classList.add('hidden');
+  movieCardOverlayEl.classList.add('hidden');
+};
+
+document.querySelector('.close-movie-card').addEventListener('click', () => {
   closeMovieDetail();
 });
 
-detailContainerOverlayEl.addEventListener('click', () => {
+movieCardOverlayEl.addEventListener('click', () => {
   closeMovieDetail();
 });
 
@@ -135,33 +243,3 @@ window.addEventListener('keydown', e => {
     closeMovieDetail();
   }
 });
-
-/* Create lazy load using intersection observer (NOT WORKING)
-const loadMore = page => {
-  // const loadMoreEl = document.querySelector('.load-more');
-  const movieItemEls = document.querySelectorAll('.movie-item:not(.hidden)');
-
-  const movieItemObserver = new IntersectionObserver(entries => {
-    entries.forEach(
-      entry => {
-        console.log(entry);
-        const { isIntersecting } = entry;
-        console.log(isIntersecting);
-        if (isIntersecting) {
-          // page += 1;
-          // console.log('page', page);
-          // renderMovie(page)
-          // movieItemObserver.unobserve(entry.target);
-        }
-      },
-      {
-        threshold: 1,
-      }
-    );
-  });
-
-  movieItemEls.forEach(movieItemEl => {
-    movieItemObserver.observe(movieItemEl);
-  });
-};
-*/
