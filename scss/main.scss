@@ -189,7 +189,7 @@ nav {
     width: 100%;
     .movie-item {
       text-align: center;
-      height: 470px;
+      height: 327px;
       padding: 1em;
       &.hidden {
         display: none;
@@ -259,8 +259,8 @@ nav {
 .movie-card {
   background-color: $white;
   border-radius: 10px;
-  width: 55vw;
-  height: 55vh;
+  // width: 55vw;
+  // height: 55vh;
   padding: 2em 3em;
   font-weight: $light;
   position: fixed;
