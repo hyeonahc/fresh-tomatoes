@@ -143,7 +143,8 @@ function renderMovie(Search, totalResults) {
 // handle error message
 const errorPage = error => {
   // [HELP WANTED] Why does this image not change?
-  // tomatoImg.src = './img/tomato-frown.png';
+  tomatoImg.src =
+    'https://user-images.githubusercontent.com/83247825/169230530-b1487b42-6fa0-464e-a8df-2ff2aa2d6325.png';
   if (error === 'Incorrect IMDb ID.') {
     h1El.innerHTML = 'Forgot to type?';
     h2El.innerHTML = `Type something to find your favourite movie!`;
