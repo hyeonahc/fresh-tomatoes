@@ -15,6 +15,7 @@ const moviePageEl = document.querySelector('.movie-page');
 const movieContainerEl = document.querySelector('.movie-container');
 const movieCardEl = document.querySelector('.movie-card');
 const movieCardOverlayEl = document.querySelector('.movie-card-overlay');
+const loadNothingEl = document.querySelector('.load-nothing');
 const loadMoreEl = document.querySelector('.load-more');
 const loadMoreAnimationEl = document.querySelector('.load-more-animation');
 
@@ -167,15 +168,21 @@ infiniteScroll.observe(loadMoreEl);
 
 // when load more button is observed, render more movies
 const loadMoreMovie = async () => {
-  // loadMoreAnimationEl.classList.toggle('hidden');
   loadMoreAnimationEl.classList.remove('hidden');
   page += 1;
   const movies = await getMovie(inputEl.value, page);
   const { Search, totalResults } = movies;
-  renderMovie(Search, totalResults);
-  setTimeout(() => {
-    loadMoreAnimationEl.classList.add('hidden');
-  }, '1000');
+  if (totalResults !== undefined) {
+    loadNothingEl.classList.add('hidden');
+    renderMovie(Search, totalResults);
+    setTimeout(() => {
+      loadMoreAnimationEl.classList.add('hidden');
+    }, '1000');
+  } else {
+    setTimeout(() => {
+      loadNothingEl.classList.remove('hidden');
+    }, '2000');
+  }
 };
 
 // fetch movie detail data using imdbID

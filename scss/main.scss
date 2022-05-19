@@ -345,6 +345,35 @@ main {
   position: relative;
 }
 
+.load-nothing {
+  @include translate-x-center;
+  bottom: 5%;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  &.hidden {
+    display: none;
+  }
+  p {
+    font-size: 2rem;
+  }
+  img {
+    height: 45px;
+    animation: loadNothing 1s linear 1;
+  }
+  @keyframes loadNothing {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(-30deg);
+    }
+    100% {
+      transform: rotate(30deg);
+    }
+  }
+}
+
 .load-more {
   color: $white;
   text-align: center;
