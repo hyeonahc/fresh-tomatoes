@@ -8,6 +8,7 @@ const logoEl = document.querySelector('.logo');
 const inputEl = document.querySelector('.search input');
 const closeEl = document.querySelector('.search .fa-xmark');
 const welcomePageEl = document.querySelector('.welcome-page');
+const tomatoImg = document.querySelector('.welcome-page .tomato');
 const h1El = document.querySelector('h1');
 const h2El = document.querySelector('h2');
 const moviePageEl = document.querySelector('.movie-page');
@@ -130,6 +131,8 @@ function renderMovie(Search, totalResults) {
 
 // handle error message
 const errorPage = error => {
+  // [HELP WANTED] Why does this image not change?
+  // tomatoImg.src = './img/tomato-frown.png';
   if (error === 'Incorrect IMDb ID.') {
     h1El.innerHTML = 'Forgot to type?';
     h2El.innerHTML = `Type something to find your favourite movie!`;
