@@ -24,6 +24,16 @@
 
 [Fresh Tomatoes 웹사이트 방문하기](https://freshtomatoes.netlify.app/)
 
+![1](https://user-images.githubusercontent.com/83247825/169261007-dfcdaa17-cdc5-4245-a6da-2253ef619a15.png)
+
+![2](https://user-images.githubusercontent.com/83247825/169261018-35826ae0-5120-4211-b06c-fd0692353d9b.png)
+
+![3](https://user-images.githubusercontent.com/83247825/169261033-964429b1-1d8e-493a-8336-0026f1a9988d.png)
+
+![4](https://user-images.githubusercontent.com/83247825/169261038-2a0d7918-ae7b-4bef-bda1-d8c1c3003a73.png)
+
+![5](https://user-images.githubusercontent.com/83247825/169261053-fe5bd00d-bedc-47f2-8e6d-77c2e0f9517d.png)
+
 ## 질문
 
 **main.js 파일에서 126, 147, 236 줄에서 질문 있습니다**
