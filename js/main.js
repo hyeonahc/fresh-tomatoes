@@ -118,7 +118,12 @@ function renderMovie(Search, totalResults) {
 
     const { Poster, Title, Year, imdbID } = movie;
     movieItem.setAttribute('data-imdbid', imdbID);
-    img.src = Poster;
+    if (Poster === 'N/A') {
+      // [HELP WANTED] Why does this image not change?
+      img.src = '../img/image-not-available.png';
+    } else {
+      img.src = Poster;
+    }
     movieTitle.innerHTML = Title;
     movieYear.innerHTML = Year;
 
@@ -208,7 +213,13 @@ const renderMovieDetail = movieDetail => {
     Country,
     Awards,
   } = movieDetail;
-  document.querySelector('.movie-card .movie-img').src = Poster;
+  if (Poster === 'N/A') {
+    // [HELP WANTED] Why does this image not change?
+    document.querySelector('.movie-card .movie-img').src =
+      '../img/image-not-available.png';
+  } else {
+    document.querySelector('.movie-card .movie-img').src = Poster;
+  }
   const title = document.querySelector('.movie-card .movie-title')
     .childNodes[0];
   title.nodeValue = Title;
