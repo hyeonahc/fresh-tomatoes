@@ -22,7 +22,7 @@
 
 ## 사이트 링크
 
-[Fresh Tomatoes 웹사이트 방문하기](https://freshtomatoes.netlify.app/)
+[Fresh Tomatoes 웹사이트 방문하기 ✨](https://freshtomatoes.netlify.app/)
 
 ![1](https://user-images.githubusercontent.com/83247825/169261007-dfcdaa17-cdc5-4245-a6da-2253ef619a15.png)
 
