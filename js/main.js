@@ -118,12 +118,18 @@ function renderMovie(Search, totalResults) {
 
     const { Poster, Title, Year, imdbID } = movie;
     movieItem.setAttribute('data-imdbid', imdbID);
-    if (Poster === 'N/A') {
-      // [HELP WANTED] Why does this image not change?
-      img.src = '../img/image-not-available.png';
-    } else {
-      img.src = Poster;
+
+    function setMoviePosterSrc() {
+      if (Poster === 'N/A') {
+        // [HELP WANTED] Why does this image not change?
+        // return '../img/image-not-available.png';
+        return 'https://user-images.githubusercontent.com/83247825/169230743-9c6d8b88-3513-4e29-9970-922f173f03a0.png';
+      } else {
+        return Poster;
+      }
     }
+    img.src = setMoviePosterSrc();
+
     movieTitle.innerHTML = Title;
     movieYear.innerHTML = Year;
 
@@ -213,13 +219,19 @@ const renderMovieDetail = movieDetail => {
     Country,
     Awards,
   } = movieDetail;
-  if (Poster === 'N/A') {
-    // [HELP WANTED] Why does this image not change?
-    document.querySelector('.movie-card .movie-img').src =
-      '../img/image-not-available.png';
-  } else {
-    document.querySelector('.movie-card .movie-img').src = Poster;
+
+  const movieImg = document.querySelector('.movie-card .movie-img');
+  function setMoviePosterSrc() {
+    if (Poster === 'N/A') {
+      // [HELP WANTED] Why does this image not change?
+      // return '../img/image-not-available.png';
+      return 'https://user-images.githubusercontent.com/83247825/169230743-9c6d8b88-3513-4e29-9970-922f173f03a0.png';
+    } else {
+      return Poster;
+    }
   }
+  movieImg.src = setMoviePosterSrc();
+
   const title = document.querySelector('.movie-card .movie-title')
     .childNodes[0];
   title.nodeValue = Title;
