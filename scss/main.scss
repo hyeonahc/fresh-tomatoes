@@ -43,6 +43,10 @@ $container-padding-lg: 0 6em;
   transform: translateY(-50%);
 }
 
+body {
+  overflow-y: scroll;
+}
+
 body,
 h1,
 h2,
@@ -182,11 +186,8 @@ nav {
   .movie-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    // background-color: #2196f3;
     width: 100%;
     .movie-item {
-      // background-color: rgba(255, 255, 255, 0.8);
-      // border: 1px solid rgba(0, 0, 0, 0.8);
       text-align: center;
       padding: 1em;
       &.hidden {
@@ -283,51 +284,56 @@ nav {
     }
     img {
       display: block;
-      width: 30%;
       border-radius: 10px;
+      width: 300px;
+      height: 445px;
     }
-    .movie-title {
-      font-size: 3rem;
-      line-height: 1.5;
-      font-weight: $bolder;
-      margin-bottom: 0.3em;
-      a {
-        color: $dark-green;
-        .fa-link {
-          font-size: 1.75rem;
-          vertical-align: text-top;
-          cursor: pointer;
+    .movie-info {
+      width: 700px;
+      .movie-title {
+        font-size: 2.3rem;
+        line-height: 1.5;
+        font-weight: $bolder;
+        margin-bottom: 0.3em;
+        a {
+          color: $dark-green;
+          .fa-link {
+            font-size: 1.75rem;
+            vertical-align: text-top;
+            cursor: pointer;
+            padding-left: 0.5em;
+          }
         }
       }
-    }
-    .categories {
-      margin-bottom: 1em;
-      .category {
-        display: inline-block;
-        border: 2px solid $dark-green;
-        border-radius: 25px;
-        padding: 0.5em 1em;
-        margin-right: 0.5em;
-        font-weight: $regular;
-        color: $dark-green;
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-    }
-    p {
-      font-weight: $light;
-      margin-bottom: 1em;
-    }
-    table {
-      border-left: 3px solid $dark-green;
-      border-collapse: collapse;
-      width: 100%;
-      td {
-        padding: 0.5em 0;
-        &:nth-child(1) {
+      .categories {
+        margin-bottom: 1em;
+        .category {
+          display: inline-block;
+          border: 2px solid $dark-green;
+          border-radius: 25px;
+          padding: 0.5em 1em;
+          margin-right: 0.5em;
           font-weight: $regular;
-          padding-left: 1em;
+          color: $dark-green;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
+      p {
+        font-weight: $light;
+        margin-bottom: 1em;
+      }
+      table {
+        border-left: 3px solid $dark-green;
+        border-collapse: collapse;
+        width: 100%;
+        td {
+          padding: 0.5em 0;
+          &:nth-child(1) {
+            font-weight: $regular;
+            padding-left: 1em;
+          }
         }
       }
     }
