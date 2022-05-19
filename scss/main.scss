@@ -369,7 +369,7 @@ main {
     width: 2em;
     height: 2em;
     border-radius: 15px;
-    animation: dotFlashing 0.5s infinite linear alternate;
+    animation: dotFlashing 0.5s 3 linear alternate;
     animation-delay: 0.25s;
     &::before,
     &::after {
@@ -383,7 +383,7 @@ main {
       width: 2em;
       height: 2em;
       border-radius: 15px;
-      animation: dotFlashing 0.5s infinite alternate;
+      animation: dotFlashing 0.5s 3 alternate;
       animation-delay: 0s;
     }
     &::after {
@@ -391,7 +391,7 @@ main {
       width: 2em;
       height: 2em;
       border-radius: 15px;
-      animation: dotFlashing 0.5s infinite alternate;
+      animation: dotFlashing 0.5s 3 alternate;
       animation-delay: 0.5s;
     }
     @keyframes dotFlashing {
