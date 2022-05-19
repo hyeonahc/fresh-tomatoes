@@ -182,7 +182,7 @@ const loadMoreMovie = async () => {
   } else {
     setTimeout(() => {
       loadNothingEl.classList.remove('hidden');
-    }, '2000');
+    }, '1500');
   }
 };
 
