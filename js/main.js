@@ -4,6 +4,7 @@ import 'regenerator-runtime';
 let page = 1;
 let totalResults = 0;
 let initialRequest;
+const logoEl = document.querySelector('.logo');
 const inputEl = document.querySelector('.search input');
 const closeEl = document.querySelector('.search .fa-xmark');
 const welcomePageEl = document.querySelector('.welcome-page');
@@ -15,6 +16,11 @@ const movieCardEl = document.querySelector('.movie-card');
 const movieCardOverlayEl = document.querySelector('.movie-card-overlay');
 const loadMoreEl = document.querySelector('.load-more');
 const loadMoreAnimationEl = document.querySelector('.load-more-animation');
+
+// Refresh page when logo is clicked
+logoEl.addEventListener('click', () => {
+  location.reload();
+});
 
 // fetch movie data
 const getMovie = async (name, page) => {
