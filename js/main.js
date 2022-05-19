@@ -63,12 +63,14 @@ const searchMovie = async () => {
   const { Search, totalResults, Response, Error } = movies;
   if (Response === 'True') {
     welcomePageEl.classList.add('hidden');
+    moviePageEl.classList.remove('hidden');
     loadMoreEl.classList.remove('hidden');
     clearExistingMovie();
     renderMovie(Search, totalResults);
   } else {
     welcomePageEl.classList.remove('hidden');
-    loadMoreEl.classList.remove('hidden');
+    moviePageEl.classList.add('hidden');
+    loadMoreEl.classList.add('hidden');
     errorPage(Error);
   }
   initialRequest = false;
