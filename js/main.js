@@ -13,6 +13,8 @@ const moviePageEl = document.querySelector('.movie-page');
 const movieContainerEl = document.querySelector('.movie-container');
 const movieCardEl = document.querySelector('.movie-card');
 const movieCardOverlayEl = document.querySelector('.movie-card-overlay');
+const loadMoreEl = document.querySelector('.load-more');
+const loadMoreAnimationEl = document.querySelector('.load-more-animation');
 
 // fetch movie data
 const getMovie = async (name, page) => {
@@ -61,10 +63,12 @@ const searchMovie = async () => {
   const { Search, totalResults, Response, Error } = movies;
   if (Response === 'True') {
     welcomePageEl.classList.add('hidden');
+    loadMoreEl.classList.remove('hidden');
     clearExistingMovie();
     renderMovie(Search, totalResults);
   } else {
     welcomePageEl.classList.remove('hidden');
+    loadMoreEl.classList.remove('hidden');
     errorPage(Error);
   }
   initialRequest = false;
@@ -128,11 +132,11 @@ const errorPage = error => {
 };
 
 // execute infinite scroll using intersection observer
-const loadMoreEl = document.querySelector('.load-more');
 const infiniteScroll = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     const { isIntersecting } = entry;
     if (isIntersecting) {
+      console.log(isIntersecting);
       loadMoreMovie();
     }
   });
@@ -141,6 +145,7 @@ infiniteScroll.observe(loadMoreEl);
 
 // when load more button is observed, render more movies
 const loadMoreMovie = async () => {
+  loadMoreAnimationEl.classList.toggle('hidden');
   page += 1;
   const movies = await getMovie(inputEl.value, page);
   const { Search, totalResults } = movies;
