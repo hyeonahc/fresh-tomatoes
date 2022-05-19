@@ -136,7 +136,6 @@ const infiniteScroll = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     const { isIntersecting } = entry;
     if (isIntersecting) {
-      console.log(isIntersecting);
       loadMoreMovie();
     }
   });
@@ -145,11 +144,15 @@ infiniteScroll.observe(loadMoreEl);
 
 // when load more button is observed, render more movies
 const loadMoreMovie = async () => {
-  loadMoreAnimationEl.classList.toggle('hidden');
+  // loadMoreAnimationEl.classList.toggle('hidden');
+  loadMoreAnimationEl.classList.remove('hidden');
   page += 1;
   const movies = await getMovie(inputEl.value, page);
   const { Search, totalResults } = movies;
   renderMovie(Search, totalResults);
+  setTimeout(() => {
+    loadMoreAnimationEl.classList.add('hidden');
+  }, '1000');
 };
 
 // fetch movie detail data using imdbID

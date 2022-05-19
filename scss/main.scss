@@ -342,18 +342,15 @@ main {
 }
 
 .load-more {
-  // background: yellow;
   color: $white;
   text-align: center;
-  margin-top: 9em;
-  height: 1em;
+  margin-top: 30em;
   &.hidden {
     display: none;
   }
 }
 
 .load-more-animation {
-  background: white;
   width: 100%;
   height: 10em;
   position: fixed;
