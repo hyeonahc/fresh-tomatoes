@@ -22,17 +22,25 @@
 
 ## 사이트 링크
 
-[Fresh Tomatoes 웹사이트 방문하기 ✨](https://freshtomatoes.netlify.app/)
+### [Fresh Tomatoes 웹사이트 방문하기 ✨](https://freshtomatoes.netlify.app/)
 
+### 메인 페이지
 ![1](https://user-images.githubusercontent.com/83247825/169261007-dfcdaa17-cdc5-4245-a6da-2253ef619a15.png)
 
+### 영화 검색 페이지
 ![2](https://user-images.githubusercontent.com/83247825/169261018-35826ae0-5120-4211-b06c-fd0692353d9b.png)
 
+### 영화 상세 페이지
 ![3](https://user-images.githubusercontent.com/83247825/169261033-964429b1-1d8e-493a-8336-0026f1a9988d.png)
 
+### 더이상 로딩시킬 영화가 없을때
 ![4](https://user-images.githubusercontent.com/83247825/169261038-2a0d7918-ae7b-4bef-bda1-d8c1c3003a73.png)
 
+### 존재하지 않는 영화를 검색했을때
 ![5](https://user-images.githubusercontent.com/83247825/169261053-fe5bd00d-bedc-47f2-8e6d-77c2e0f9517d.png)
+
+### input에 값을 입력하지 않았을때
+![5](https://user-images.githubusercontent.com/83247825/169261049-839c6401-c376-43d9-9fb8-3315f390e3ae.png)
 
 ## 질문
 
@@ -55,3 +63,12 @@ tomatoImg.src = '../img/frown-tomato.png';
 - [ ] utils.scss 만들어준 후 Scss에서 만든 variable 따로 관리해주기
 - [ ] meta 태그 추가해서 SNS에 공유시 나오는 이미지, 제목, 설명글 커스터마이즈해주기
 - [ ] media query 적용해 반응형으로 만들어주기
+- [ ] nav 요소를 항상 위에 고정시켜주기
+- [ ] 영화 이미지를 img의 src가 아닌 background로 바꿔줘 이미지의 비율을 유지시킨채 모두 같은 높이와 너비값을 가지게 하기
+- [ ] 에러 핸들링 if문이 아닌 try catch문으로 바꿔주기
+- [ ] scroll to top 기능 구현하기
+- [ ] 000개의 영화정보를 찾았습니다 문구 추가해주기
+- [ ] 영화 상세페이지에 별점 추가해주기
+
+## 느낀점
+과제는 미리 하자...
